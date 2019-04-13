@@ -9,6 +9,12 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 
+const User = require('./models/user');
+const Journal = require('./models/journal');
+const Day = require('./models/day');
+const Place = require('./models/place');
+const Comment = require('./models/comment');
+
 
 mongoose
   .connect('mongodb://localhost/final-project', {useNewUrlParser: true})
