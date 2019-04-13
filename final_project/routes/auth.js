@@ -7,7 +7,7 @@ const passport = require('passport')
 const ensureLogin = require("connect-ensure-login");
 
 
-// Sing up
+// Sign up
 
 passportRouter.get("/signup", (req, res, next) => {
     res.render('signup');
@@ -63,13 +63,14 @@ passportRouter.post("/signup", (req, res, next) => {
   });
   
   passportRouter.post("/login", passport.authenticate("local", {
-    successRedirect: "/private-page",
+    successRedirect: "/my-page",
     failureRedirect: "/login",
-    failureFlash: true,
-    passReqToCallback: true
+    failureFlash: false,
+    passReqToCallback: false
   }));
+
   
-  passportRouter.get("/private-page", ensureLogin.ensureLoggedIn(), (req, res) => {
+  passportRouter.get("/my-page", ensureLogin.ensureLoggedIn(), (req, res) => {
     res.render("private", { user: req.user });
   });
   

@@ -4,7 +4,13 @@ const Schema   = mongoose.Schema;
 const daySchema = new Schema({
   date: String,
   places: [],
+},{ 
+  timestamps: {
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  }
 });
 
-const daySchema = mongoose.model("Day", daySchema);
+
+const Day = mongoose.model("Day", daySchema);
 module.exports = Day;

@@ -10,8 +10,14 @@ const placeSchema = new Schema({
   rating: Number,
   hours: String,
   description: String,
-  comments: []
+  comments: [],
+},{ 
+  timestamps: {
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  }
 });
 
-const placeSchema = mongoose.model("Place", placeSchema);
+
+const Place = mongoose.model("Place", placeSchema);
 module.exports = Place;

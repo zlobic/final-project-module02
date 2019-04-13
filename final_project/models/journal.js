@@ -8,7 +8,13 @@ const journalSchema = new Schema({
       longitude: Number,
     },
   days: [],
+},{ 
+  timestamps: {
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  }
 });
 
-const journalSchema = mongoose.model("Journal", journalSchema);
+
+const Journal = mongoose.model("Journal", journalSchema);
 module.exports = Journal;
