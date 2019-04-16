@@ -1,9 +1,25 @@
 <div>Private page</div>
 {{#if user}}
-  <div>
-    <h1>Who's the best developer?</h1>
-    <h1>You are, <span style="color: red;">{{ user.username}}</span>. You are! </h1>
-    <img src="http://media.giphy.com/media/UsK5GqD3e0huU/giphy.gif" alt="You rock.">
-    <a href="/">Index</a>
+<div>
+
+  <div id="leftbar">
+    <h1>Welcome {{user.firstname}}</h1>
+    <div id="scrollmenu1">
+      <h2>My Profile</h2>
+      <a href="#">View profile</a>
+      <a href="#">Edit your profile</a>
+    </div>
+    <div id="scrollmenu2">
+      <h2 href="/my-page/journals">My Journals</h2>
+      {{#each user.journals}}
+      <a href="/my-page/journals/{{this._id}}">{{this}}</a>
+      {{/each}}
+    </div>
+    <a href="/logout">Logout</a>
+    <div id="main">
+      <a id="addbtn" href="/create-journal">Add a journal</a>
+    </div>
   </div>
+
+</div>
 {{/if}}
