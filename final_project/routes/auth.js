@@ -73,5 +73,12 @@ passportRouter.post("/signup", (req, res, next) => {
   passportRouter.get("/my-page", ensureLogin.ensureLoggedIn(), (req, res) => {
     res.render("private", { user: req.user });
   });
+
+  //Logout
+
+  passportRouter.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/login");
+   });
   
   module.exports = passportRouter;
