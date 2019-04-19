@@ -4,11 +4,9 @@ const Schema   = mongoose.Schema;
 const journalSchema = new Schema({
   name: String,
   city: String,
-  geolocation:{
-      latitude: Number,
-      longitude: Number,
-    },
+  firstday: Date,
   days: [],
+  author: {type: Schema.Types.ObjectId, ref: 'user'}
 },{ 
   timestamps: {
     createdAt: "created_at",
