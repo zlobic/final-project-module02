@@ -1,25 +1,36 @@
 const express        = require("express");
-const passportRouter = express.Router();
+const router = express.Router();
 const User = require("../models/user");
 const Journal = require("../models/journal");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
-const passport = require('passport')
+const passport = require('passport');
 const ensureLogin = require("connect-ensure-login");
+const axios           = require('axios');
+const mongoose     = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
+/* Home page */ 
+
+    router.get('/', (req, res, next) => {
+    res.render('index');
+  });
+  
 
 // Sign up
 
-passportRouter.get("/signup", (req, res, next) => {
+router.get("/signup", (req, res, next) => {
     res.render('signup');
   });
   
-passportRouter.post("/signup", (req, res, next) => {
+router.post("/signup", (req, res, next) => {
+    const name = req.body.name;
     const username = req.body.username;
     const password = req.body.password;
+   
   
     if (username === "" || password === "") {
-      res.render("/signup", { message: "You should have an username and password" });
+      res.render("signup", { message: "You should have an username and password" });
       return;
     }
   
@@ -34,6 +45,7 @@ passportRouter.post("/signup", (req, res, next) => {
       const hashPass = bcrypt.hashSync(password, salt);
   
       const newUser = new User({
+        name,
         username,
         password: hashPass
       });
@@ -42,7 +54,7 @@ passportRouter.post("/signup", (req, res, next) => {
         if (err) {
           res.render("signup", { message: "Something went wrong" });
         } else {
-          res.redirect("/");
+          res.redirect("/my-page");
         }
       });
     })
@@ -52,26 +64,29 @@ passportRouter.post("/signup", (req, res, next) => {
   });
   
   
-  passportRouter.get("/signup", ensureLogin.ensureLoggedIn(), (req, res) => {
+  router.get("/signup", ensureLogin.ensureLoggedIn(), (req, res) => {
     res.render("private", { user: req.user });
   });
   
   
   // Log in
   
-  passportRouter.get("/login", (req, res, next) => {
+  router.get("/login", (req, res, next) => {
     res.render("login");
   });
   
-  passportRouter.post("/login", passport.authenticate("local", {
+  router.post("/login", passport.authenticate("local", {
     successRedirect: "/my-page",
     failureRedirect: "/login",
     failureFlash: false,
     passReqToCallback: false
   }));
 
-  
-  passportRouter.get("/my-page", ensureLogin.ensureLoggedIn(), (req, res) => {
+
+  //My Page
+
+
+  router.get("/my-page", ensureLogin.ensureLoggedIn(), (req, res) => {
     Journal.find({author: req.user._id})
     .then( journals => {
       res.render("private", { user: req.user, journals: journals });
@@ -82,14 +97,80 @@ passportRouter.post("/signup", (req, res, next) => {
       })
     });
 
-  
- 
 
-  //Logout
 
-  passportRouter.get("/logout", (req, res) => {
-    req.logout();
-    res.redirect("/login");
-   });
+ /* Journal details page */
+
+ router.get('/my-page/journals/journal-details/:id', (req, res, next) => {
+  Journal.findById(req.params.id)
+    .then( journal => {
+      res.render("journal-details" ,  journal );
+    })
+    .catch(err => {
+      console.log('error');
+    })
+});
+
+ /* Create journal page */
+
+ router.get('/my-page/create-journal', (req, res, next) => {
+  res.render('create-journal');
+});
+
+router.post('/my-page/create-journal', (req, res, next) => {
+  const journalName = req.body.journalname
+  const cityName = req.body.cityname
+  const author =  req.user._id
+
+  const newJournal = new Journal({
+    name: journalName,
+    city: cityName,
+    author: author,
+  });
+
+  newJournal.save((err) => {
+    if (err) {
+      res.render("create-journal", { message: "Something went wrong" });
+    } else {
+      res.redirect("/my-page/journals/journal-details");
+    }
+  });
+
+});
+
+
+//Delete
+router.get('/my-page/journals/journal-details/delete', (req, res) => {
+  Journal.findByIdAndDelete({_id: req.query.id})
+    .then( deleted => {
+      console.log(deleted)
+      res.render('private', deleted);
+    })
+    .catch(err => {
+      console.log(err);
+      console.log("hello")
+    })
+})
+
+
+// Add Place page
+
+router.get('/add-place', (req, res, next) => {
+  res.render('add-place');
+});
+
+// axios.post
+
+
+
+ //Logout
+
+ router.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/login");
+ });
+
   
-  module.exports = passportRouter;
+
+module.exports = router;
+

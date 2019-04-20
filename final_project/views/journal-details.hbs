@@ -1,6 +1,6 @@
-{{#each journal}}
 
 <div id='journaldetails'>
+
 
 <h1>{{name}}</h1>
 <h2>{{city}}</h2>
@@ -21,9 +21,10 @@
 
 <div id="map"></div>
 
-<input id='deletebtn' type="button" value="Delete Journal">
+
+<a href='/my-page/journals/journal-details/delete?id={{_id}}'>Delete</a>
+
 
 </div>
 
 
-{{/each}}

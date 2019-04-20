@@ -15,10 +15,13 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('./models/user');
-// const Journal = require('./models/journal');
-// const Day = require('./models/day');
-// const Place = require('./models/place');
-// const Comment = require('./models/comment');
+const Journal = require('./models/journal');
+const Day = require('./models/day');
+const Place = require('./models/place');
+const Comment = require('./models/comment');
+
+
+const ObjectId = mongoose.Types.ObjectId;
 
 const session = require('express-session');
 
@@ -88,6 +91,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+
 // Express View engine setup
 
 app.use(require('node-sass-middleware')({
@@ -102,16 +106,23 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
+//Delete
 
+app.delete("/my-page/journals/journal-details", function(req, res){
+  Journal.findByIdAndRemove(ObjectId(req.params.id), function(err){
+    if(err){
+      res.send(err);
+    } else {
+      res.redirect("/my-page/journals");
+    }
+  });
+});
 
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
 
 
 // Routes middleware goes here
-
-const index = require('./routes/index');
-app.use('/', index);
 
 const auth = require('./routes/auth');
 app.use('/', auth);
