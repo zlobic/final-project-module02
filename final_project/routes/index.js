@@ -1,7 +1,7 @@
 const express        = require("express");
-const router         = express.Router();
-const Journal        = require("../models/journal");
-const User           = require("../models/user");
+const router = express.Router();
+const User = require("../models/user");
+const Journal = require("../models/journal");
 const axios           = require('axios');
 
 
@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
 });
 
 /* Journals page */
-router.get('/journals', (req, res, next) => {
+router.get('/my-page/journals', (req, res, next) => {
   Journal.find()
     .then(journalsDB => {
       res.render("journals" , { journals: journalsDB });
@@ -21,16 +21,28 @@ router.get('/journals', (req, res, next) => {
     })
  });
 
+ /* Journal details page */
+
+ router.get('/my-page/journals/:id', (req, res, next) => {
+  Journal.find()
+    .then( journal => {
+      res.render("journal-details" , { journal: journal });
+    })
+    .catch(err => {
+      console.log('error');
+    })
+});
+
  /* Create journal page */
 
- router.get('/create-journal', (req, res, next) => {
+ router.get('/my-page/create-journal', (req, res, next) => {
   res.render('create-journal');
 });
 
-router.post('/create-journal', (req, res, next) => {
+router.post('/my-page/create-journal', (req, res, next) => {
   const journalName = req.body.journalname
   const cityName = req.body.cityname
-  const author= req.user._id
+  const author =  req.user._id
 
   const newJournal = new Journal({
     name: journalName,
@@ -42,23 +54,12 @@ router.post('/create-journal', (req, res, next) => {
     if (err) {
       res.render("create-journal", { message: "Something went wrong" });
     } else {
-      res.redirect("/journal-details");
+      res.redirect("/my-page/journals/");
     }
   });
 
 });
 
- /* Journal details page */
-
- router.get('/journal-details', (req, res, next) => {
-  Journal.find({author: req.user._id})
-    .then( journal => {
-      res.render("journal-details" , { journal: journal });
-    })
-    .catch(err => {
-      console.log('error');
-    })
-});
 
 
 // Add Place page
@@ -68,6 +69,16 @@ router.get('/add-place', (req, res, next) => {
 });
 
 // axios.post
+
+
+// Delete Journal Page
+
+// router.get('/delete-journal', (req, res, next) => {
+//   Journal.findByIdAndRemove({{journal}})
+//   .then(successCallback)
+//   .catch(errorCallback);
+// });
+
   
 
 module.exports = router;

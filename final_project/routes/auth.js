@@ -1,6 +1,7 @@
 const express        = require("express");
 const passportRouter = express.Router();
 const User = require("../models/user");
+const Journal = require("../models/journal");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 const passport = require('passport')
@@ -71,8 +72,18 @@ passportRouter.post("/signup", (req, res, next) => {
 
   
   passportRouter.get("/my-page", ensureLogin.ensureLoggedIn(), (req, res) => {
-    res.render("private", { user: req.user });
-  });
+    Journal.find({author: req.user._id})
+    .then( journals => {
+      res.render("private", { user: req.user, journals: journals });
+      })
+    .catch(error => {
+      console.log(error);
+        next(error)
+      })
+    });
+
+  
+ 
 
   //Logout
 

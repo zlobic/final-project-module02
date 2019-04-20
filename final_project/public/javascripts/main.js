@@ -92,8 +92,6 @@ function initMap()
 
 // Event Listeners
 
-$("#deletebtn").click(function() {
-  $("#journaldetails").remove();
-});
+
 
 

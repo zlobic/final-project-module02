@@ -1,5 +1,4 @@
 
-{{#if user}}
 <div>
 
   <div id="leftbar">
@@ -11,15 +10,14 @@
     </div>
     <div id="scrollmenu2">
       <h2 href="/my-page/journals">My Journals</h2>
-      {{#each user.journals}}
-      <a href="/my-page/journals/{{this._id}}">{{this}}</a>
+      {{#each journals}}
+      <a href="/my-page/journals/{{_id}}">{{name}}</a>
       {{/each}}
     </div>
     <div id="main">
-      <a id="addbtn" href="/create-journal">Add a journal</a>
+      <a id="addbtn" href="/my-page/create-journal">Add a journal</a>
     </div>
       <a href="/logout">Logout</a>
   </div>
 
 </div>
-{{/if}}
