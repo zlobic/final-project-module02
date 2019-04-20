@@ -1,6 +1,7 @@
 const express        = require("express");
 const router         = express.Router();
 const Journal        = require("../models/journal");
+const User           = require("../models/user");
 const axios           = require('axios');
 
 
@@ -30,8 +31,6 @@ router.post('/create-journal', (req, res, next) => {
   const journalName = req.body.journalname
   const cityName = req.body.cityname
   const author= req.user._id
-
-  // res.send (`Journalname: ${journalName}, CityName : ${cityName}, firstDay : ${firstDay}, numberOfDays : ${numberOfDays}`);
 
   const newJournal = new Journal({
     name: journalName,
@@ -68,7 +67,7 @@ router.get('/add-place', (req, res, next) => {
   res.render('add-place');
 });
 
-axios.post
+// axios.post
   
 
 module.exports = router;

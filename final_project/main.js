@@ -1,3 +1,6 @@
+// Google Places API
+
+
 function initMap() 
 {
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -87,4 +90,10 @@ function initMap()
       });
 }
 
-initMap();
+// Event Listeners
+
+$("#deletebtn").click(function() {
+  $("#journaldetails").remove();
+});
+
+

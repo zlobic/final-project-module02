@@ -1,17 +1,29 @@
 {{#each journal}}
 
+<div id='journaldetails'>
+
 <h1>{{name}}</h1>
 <h2>{{city}}</h2>
-<div id='day'>
+
+<button type="button">Add a place</button>
+
   <div id='places'>
-    <div id="info"></div>
-    <div id="photos"></div>
-    <div id="mycomments"></div>
-    <div id="friendscomments"></div>
-    <input type="button" value="Delete Place">
+    <h4 id="info">Info</h4>
+      <h6>Name</h6>
+      <h6>Description</h6>
+      <h6>Opening hours</h6>
+      <h6>Rating</h6>
+    <h4 ="photos">Pictures</h4>
+    <h4 id="mycomments">My Comments</h4>
+    <h4 id="friendscomments">My Friends Comments</h4>
+    <input id='deletebtn' type="button" value="Delete Place">
   </div>
 
 <div id="map"></div>
+
+<input id='deletebtn' type="button" value="Delete Journal">
+
 </div>
+
 
 {{/each}}
