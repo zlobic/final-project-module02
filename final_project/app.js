@@ -65,7 +65,6 @@ passport.deserializeUser((id, cb) => {
   User.findById(id, (err, user) => {
     if (err) { return cb(err); }
     cb(null, user);
-    console.log(user);
   });
 });
 
@@ -108,15 +107,15 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 //Delete
 
-app.delete("/my-page/journals/journal-details", function(req, res){
-  Journal.findByIdAndRemove(ObjectId(req.params.id), function(err){
-    if(err){
-      res.send(err);
-    } else {
-      res.redirect("/my-page/journals");
-    }
-  });
-});
+// app.delete("/my-page/journals/journal-details", function(req, res){
+//   Journal.findByIdAndRemove(ObjectId(req.params.id), function(err){
+//     if(err){
+//       res.send(err);
+//     } else {
+//       res.redirect("/my-page/journals");
+//     }
+//   });
+// });
 
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';

@@ -11,7 +11,7 @@ const placeSchema = new Schema({
   hours: String,
   description: String,
   comments: [],
-  journal: {type: Schema.Types.ObjectId, ref: 'journal'}
+  journal: {type: Schema.Types.ObjectId, ref: 'Journal'}
 },{ 
   timestamps: {
     createdAt: "created_at",

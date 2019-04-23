@@ -97,7 +97,19 @@ router.post("/signup", (req, res, next) => {
       })
     });
 
-
+//Delete
+router.get('/my-page/journals/journal-details/delete', (req, res) => {
+  console.log("delete route");
+  Journal.findByIdAndDelete({_id: req.query.id})
+    .then( deleted => {
+      console.log(deleted)
+      res.render('private', deleted);
+    })
+    .catch(err => {
+      console.log(err);
+      console.log("hello")
+    })
+})
 
  /* Journal details page */
 
@@ -111,6 +123,8 @@ router.post("/signup", (req, res, next) => {
     })
 });
 
+
+
  /* Create journal page */
 
  router.get('/my-page/create-journal', (req, res, next) => {
@@ -120,37 +134,41 @@ router.post("/signup", (req, res, next) => {
 router.post('/my-page/create-journal', (req, res, next) => {
   const journalName = req.body.journalname
   const cityName = req.body.cityname
-  const author =  req.user._id
+  const author = mongoose.Types.ObjectId(req.user.id)
+
 
   const newJournal = new Journal({
     name: journalName,
     city: cityName,
-    author: author,
+    author: author
   });
+
 
   newJournal.save((err) => {
-    if (err) {
-      res.render("create-journal", { message: "Something went wrong" });
-    } else {
-      res.redirect("/my-page/journals/journal-details");
+    if (err) { console.log(err) }
+    else {
+      var savedJournal;
+      Journal.findOne({ name: journalName })
+        .then(journal => {
+          savedJournal = journal
+          return User.findById({_id: req.user.id})
+        })
+        .then(user => {
+          console.log(savedJournal)
+          user.journals.push(savedJournal._id)
+          user.save()
+          res.redirect(`/my-page/journals/journal-details/${savedJournal._id}`);
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
-  });
-
+  })
 });
+    
 
 
-//Delete
-router.get('/my-page/journals/journal-details/delete', (req, res) => {
-  Journal.findByIdAndDelete({_id: req.query.id})
-    .then( deleted => {
-      console.log(deleted)
-      res.render('private', deleted);
-    })
-    .catch(err => {
-      console.log(err);
-      console.log("hello")
-    })
-})
+
 
 
 // Add Place page

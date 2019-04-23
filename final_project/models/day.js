@@ -3,7 +3,7 @@ const Schema   = mongoose.Schema;
 
 const daySchema = new Schema({
   date: String,
-  places: [],
+  places: []
 },{ 
   timestamps: {
     createdAt: "created_at",

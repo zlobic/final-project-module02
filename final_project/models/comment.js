@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
 
 const commentSchema = new Schema({
-  author: {type: Schema.Types.ObjectId, ref: 'user'},
-  place: {type: Schema.Types.ObjectId, ref: 'place'}
+  author: {type: Schema.Types.ObjectId, ref: 'User'},
+  place: {type: Schema.Types.ObjectId, ref: 'Place'}
 },{ 
   timestamps: {
     createdAt: "created_at",

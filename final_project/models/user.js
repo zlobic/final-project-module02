@@ -5,7 +5,7 @@ const userSchema = new Schema({
   name: String,
   username: String,
   password: String,
-  journals: [{ type: Schema.Types.ObjectId, ref: "journal"}],
+  journals: [{ type: Schema.Types.ObjectId, ref: "Journal"}]
 },{ 
   timestamps: {
     createdAt: "created_at",
