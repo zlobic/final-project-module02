@@ -23,14 +23,14 @@ function initMap()
 
   // Set the data fields to return when the user selects a place.
   autocomplete.setFields(
-      ['address_components', 'geometry', 'icon', 'name']);
+      ['address_components', 'geometry', 'icon', 'name', 'place_id']);
 
   var infowindow = new google.maps.InfoWindow();
   var infowindowContent = document.getElementById('infowindow-content');
   infowindow.setContent(infowindowContent);
   var marker = new google.maps.Marker({
     map: map,
-    anchorPoint: new google.maps.Point(0, -29)
+    anchorPoint: new google.maps.Point(0, -29),
   });
 
   autocomplete.addListener('place_changed', function() {
@@ -88,10 +88,5 @@ function initMap()
         console.log('Checkbox clicked! New state=' + this.checked);
         autocomplete.setOptions({strictBounds: this.checked});
       });
-}
 
-// Event Listeners
-
-
-
-
+    }

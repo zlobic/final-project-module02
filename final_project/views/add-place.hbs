@@ -1,3 +1,15 @@
+<form action="/add-place" method="POST" id="add-place">
+  <label for="placename">Place name</label>
+  <input id="name" type="text" name="name" placeholder="Place name">
+  <br><br>
+  <label for="mycomments">My comments</label>
+  <textarea rows="4" cols="50" name="comment" form="usrform">
+  Enter your comments here...</textarea>
+  <br><br>
+  <a href='/my-page/journals/journal-details/:id'>Save the place</a>
+  <input type="submit" value="Submit">
+</form>
+
   <div class="pac-card" id="pac-card">
       <div>
         <div id="title">
@@ -32,4 +44,4 @@
       <span id="place-name"  class="title"></span><br>
       <span id="place-address"></span>
     </div>
-
+</form>

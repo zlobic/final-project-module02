@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
 
 const placeSchema = new Schema({
+  place_id: String,
   name: String,
   geolocation:{
     latitude: Number,
