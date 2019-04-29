@@ -6,7 +6,8 @@ const journalSchema = new Schema({
   city: String,
   firstday: Date,
   days: [],
-  author: { type: Schema.Types.ObjectId, ref: "User"} 
+  author: { type: Schema.Types.ObjectId, ref: "User"} ,
+  places: [{ type: Schema.Types.ObjectId, ref: "Place"}]
 },{
   timestamps: {
     createdAt: "created_at",

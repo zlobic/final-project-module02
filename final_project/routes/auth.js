@@ -17,7 +17,7 @@ const ObjectId = mongoose.Types.ObjectId;
   });
   
 
-// Sign up
+/* Sign up */ 
 
 router.get("/signup", (req, res, next) => {
     res.render('signup');
@@ -69,7 +69,7 @@ router.post("/signup", (req, res, next) => {
   });
   
   
-  // Log in
+  /* Log in */
   
   router.get("/login", (req, res, next) => {
     res.render("login");
@@ -83,7 +83,7 @@ router.post("/signup", (req, res, next) => {
   }));
 
 
-  //My Page
+  /* My Page */
 
 
   router.get("/my-page", ensureLogin.ensureLoggedIn(), (req, res) => {
@@ -97,17 +97,16 @@ router.post("/signup", (req, res, next) => {
       })
     });
 
-//Delete
+
+/* Delete */ 
+
 router.get('/my-page/journals/journal-details/delete', (req, res) => {
-  console.log("delete route");
   Journal.findByIdAndDelete({_id: req.query.id})
     .then( deleted => {
-      console.log(deleted)
       res.render('private', deleted);
     })
     .catch(err => {
       console.log(err);
-      console.log("hello")
     })
 })
 
@@ -122,7 +121,6 @@ router.get('/my-page/journals/journal-details/delete', (req, res) => {
       console.log('error');
     })
 });
-
 
 
  /* Create journal page */
@@ -142,7 +140,6 @@ router.post('/my-page/create-journal', (req, res, next) => {
     city: cityName,
     author: author
   });
-
 
   newJournal.save((err) => {
     if (err) { console.log(err) }
@@ -167,21 +164,48 @@ router.post('/my-page/create-journal', (req, res, next) => {
 });
     
 
+/* Add Place page */
 
-
-
-
-// Add Place page
-
-router.get('/add-place', (req, res, next) => {
+router.get('/my-page/add-place', (req, res, next) => {
   res.render('add-place');
 });
 
-// axios.post
+router.post('/my-page/add-place', (req, res, next) => {
+  const placeName = req.body.placename
+  const comments = req.body.mycomments
+  const journal = mongoose.Types.ObjectId(req.journal.id)
+
+  const newPlace = new Place({
+    name: placeName,
+    comments: comments,
+    journal: journal
+  });
+
+  newPlace.save((err) => {
+    if (err) { console.log(err) }
+    else {
+      var savedPlace;
+      Place.findOne({ name: placeName })
+        .then(place => {
+          savedPlace = place
+          return Journal.findById({_id: req.journal.id})
+        })
+        .then(journal => {
+          console.log(savedPlace)
+          journal.places.push(savedPlace._id)
+          journal.save()
+          res.redirect('/my-page/journals/journal-details/');
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  })
+});
 
 
 
- //Logout
+ /* Logout */
 
  router.get("/logout", (req, res) => {
   req.logout();
