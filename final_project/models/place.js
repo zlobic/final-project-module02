@@ -2,16 +2,12 @@ const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
 
 const placeSchema = new Schema({
-  place_id: String,
   name: String,
   geolocation:{
     latitude: Number,
     longitude: Number,
     },
-  rating: Number,
-  hours: String,
-  description: String,
-  comments: [],
+  comments: String,
   journal: {type: Schema.Types.ObjectId, ref: 'Journal'}
 },{ 
   timestamps: {

@@ -5,14 +5,14 @@
     <h1>Welcome {{user.name}}</h1>
     <div id="scrollmenu1">
       <h2>My Profile</h2>
-      <a href="#">View profile</a>
-      <a href="#">Edit your profile</a>
+      <a class="btn" href="#">View profile</a>
+      <a class="btn" href="#">Edit your profile</a>
     </div>
     <div>
     <h1>Journals</h1>
     {{#each journals}}
       <p>{{name}}</p>
-      <a href="/my-page/journals/journal-details/{{_id}}">See More</a>
+      <a class="btn" href="/my-page/journals/journal-details/{{_id}}" role="button">See More</a>
     {{/each}}
     </div>
     {{#if message}}
@@ -20,9 +20,9 @@
     {{/if}}
 
     <div id="main">
-      <a id="addbtn" href="/my-page/create-journal">Add a journal</a>
+      <a class="btn" id="addbtn" href="/my-page/create-journal">Add a journal</a>
     </div>
-      <a href="/logout">Logout</a>
+      <a class="btn" href="/logout">Logout</a>
   </div>
 
 </div>

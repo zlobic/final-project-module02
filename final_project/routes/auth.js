@@ -2,6 +2,7 @@ const express        = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const Journal = require("../models/journal");
+const Place = require("../models/place");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 const passport = require('passport');
@@ -102,9 +103,8 @@ router.post("/signup", (req, res, next) => {
 
 router.get('/my-page/journals/journal-details/delete', (req, res) => {
   Journal.findByIdAndDelete({_id: req.query.id})
-    .then( deleted => {
-      res.render('private', deleted);
-    })
+    .then( 
+      res.redirect("/my-page"))
     .catch(err => {
       console.log(err);
     })
@@ -113,14 +113,16 @@ router.get('/my-page/journals/journal-details/delete', (req, res) => {
  /* Journal details page */
 
  router.get('/my-page/journals/journal-details/:id', (req, res, next) => {
-  Journal.findById(req.params.id)
-    .then( journal => {
-      res.render("journal-details" ,  journal );
+  var placesResult = [];
+  Journal.findById(req.params.id).populate('places')
+    .then(journal => {
+      console.log(journal)
+          res.render("journal-details" ,  journal ); 
     })
     .catch(err => {
       console.log('error');
-    })
-});
+    })  
+  });
 
 
  /* Create journal page */
@@ -166,14 +168,15 @@ router.post('/my-page/create-journal', (req, res, next) => {
 
 /* Add Place page */
 
-router.get('/my-page/add-place', (req, res, next) => {
-  res.render('add-place');
+router.get('/my-page/add-place/:journalId', (req, res, next) => {
+  res.render('add-place', { journalId : req.params.journalId});
+  
 });
 
-router.post('/my-page/add-place', (req, res, next) => {
+router.post('/my-page/add-place/:journalId', (req, res, next) => {
   const placeName = req.body.placename
   const comments = req.body.mycomments
-  const journal = mongoose.Types.ObjectId(req.journal.id)
+  const journal = mongoose.Types.ObjectId(req.params.journalId)
 
   const newPlace = new Place({
     name: placeName,
@@ -182,19 +185,20 @@ router.post('/my-page/add-place', (req, res, next) => {
   });
 
   newPlace.save((err) => {
-    if (err) { console.log(err) }
+    if (err) { 
+      console.log(err) 
+    }
     else {
       var savedPlace;
       Place.findOne({ name: placeName })
         .then(place => {
           savedPlace = place
-          return Journal.findById({_id: req.journal.id})
+          return Journal.findById({_id: req.params.journalId})
         })
         .then(journal => {
-          console.log(savedPlace)
           journal.places.push(savedPlace._id)
           journal.save()
-          res.redirect('/my-page/journals/journal-details/');
+          res.redirect(`/my-page/journals/journal-details/${req.params.journalId}`);
         })
         .catch(err => {
           console.log(err)

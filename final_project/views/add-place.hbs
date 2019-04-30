@@ -1,9 +1,9 @@
-<form action="/my-page/add-place" method="POST" id="add-place">
+<form action="/my-page/add-place/{{journalId}}" method="POST" id="add-place">
   <label for="placename">Place name</label>
   <input id="placename" type="text" name="placename" placeholder="Place name">
   <br><br>
   <label for="mycomments">My comments</label>
-  <textarea rows="4" cols="50" name="mycomments" form="usrform">
+  <textarea rows="4" cols="50" name="mycomments">
   Enter your comments here...</textarea>
   <br><br>
   <input type="submit" value="Submit">
@@ -39,7 +39,7 @@
             placeholder="Enter a location">
       </div>
     </div>
-    <div id="map"></div>
+    <div id="map1"></div>
     <div id="infowindow-content">
       <img src="" width="16" height="16" id="place-icon">
       <span id="place-name"  class="title"></span><br>
