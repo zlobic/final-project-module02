@@ -1,6 +1,8 @@
+<a class="btn" href="/">Home</a>
 <h2>Signup</h2>
 
 <form action="/signup" method="POST" id="form-container">
+
   <label for="name">Your name</label>
   <input id="name" type="text" name="name" placeholder="Your name">
   <br><br>
@@ -11,12 +13,11 @@
   <input id="password" type="password" name="password" placeholder="Your password">
 
   {{#if message}}
-    <div class="error-message">{{ message }}</div>
+  <div class="error-message">{{ message }}</div>
   {{/if}}
   <br><br>
 
   <button>Create account</button>
-
   <p class="account-message">
     Do you already have an account?
     <a href="/login">Login</a>
