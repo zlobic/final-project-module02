@@ -71,6 +71,7 @@ textarea {
 
 #fbbtn{
   width: 20%;
+  margin-top: -150%;
 }
 
   #map {
@@ -96,7 +97,8 @@ textarea {
   }
 
   #logo {
-    margin-top: -25%;
+    margin-top: -5%;
+    height: 50%;
   }
 
   #addplace {
