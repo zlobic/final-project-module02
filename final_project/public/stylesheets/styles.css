@@ -42,6 +42,10 @@ input {
    color: white;
 }
 
+#fbbtn{
+  width: 20%;
+}
+
   #map {
     height: 40vw;
     width: 50vw;
