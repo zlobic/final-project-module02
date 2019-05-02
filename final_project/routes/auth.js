@@ -10,6 +10,7 @@ const ensureLogin = require("connect-ensure-login");
 const axios           = require('axios');
 const mongoose     = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
+const FacebookStrategy = require('passport-facebook').Strategy;
 
 /* Home page */ 
 
@@ -127,6 +128,9 @@ router.get('/my-page/journals/journal-details/delete', (req, res) => {
 
  /* Create journal page */
 
+
+
+
  router.get('/my-page/create-journal', (req, res, next) => {
   res.render('create-journal');
 });
@@ -215,6 +219,11 @@ router.post('/my-page/add-place/:journalId', (req, res, next) => {
   req.logout();
   res.redirect("/login");
  });
+
+
+
+
+
 
   
 

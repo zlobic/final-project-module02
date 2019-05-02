@@ -10,6 +10,7 @@ const path         = require('path');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 
 
 
@@ -81,6 +82,39 @@ passport.use(new LocalStrategy((username, password, next) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Facebook
+
+
+
+
+passport.use(new FacebookStrategy({
+    clientID: 615428192265294,
+    clientSecret: "9c7720262e429a21bf5f561a9a73a9c6",
+    callbackURL: "http://www.example.com/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate( profile, function(err, user) {
+      if (err) { return done(err); }
+      done(null, user);
+    });
+  }
+));
+
+// Redirect the user to Facebook for authentication.  When complete,
+// Facebook will redirect the user back to the application at
+//     /auth/facebook/callback
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+// Facebook will redirect the user to this URL after approval.  Finish the
+// authentication process by attempting to obtain an access token.  If
+// access was granted, the user will be logged in.  Otherwise,
+// authentication has failed.
+
+app.get('/my-page',
+  passport.authenticate('facebook', { successRedirect: '/my-page',
+                                      failureRedirect: '/' }));
+
+
 
 
 // Express View engine setup
@@ -108,15 +142,15 @@ const auth = require('./routes/auth');
 app.use('/', auth);
 
 
-// const fs = require('fs')
-// const https=require('https')
+const fs = require('fs')
+const https=require('https')
 
-// https.createServer({
-//   key: fs.readFileSync('server.key'),
-//   cert: fs.readFileSync('server.cert')
-// }, app).listen(3000, () => {
-//   console.log('Listening...')
-// })
+https.createServer({
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}, app).listen(5000, () => {
+  console.log('Listening...')
+})
 
 
 module.exports = app;

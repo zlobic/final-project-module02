@@ -6,12 +6,13 @@ html {
 body {
   margin-top: 2%;
   margin-left: 2%;
-  margin-right: 2%;
+  margin-right: 5%;
   height: 100%;
   width: 100%;
   background-color: rgb(0, 26, 51);
   color: white;
   font-family: 'Karla', sans-serif;
+  text-align: center;
 }
 
 
@@ -65,7 +66,7 @@ textarea {
    padding: 1rem;
    font-size: 1.4em;
    align-content: middle;
-   background-color:#7fa399;
+   background-color:#7ad3ca;
    color: white;
 }
 
@@ -86,19 +87,18 @@ textarea {
   
   }
 
-  #home {
+  .home {
     height: 800px;
     width: 1200px;
     margin-left: 0;
-    position: relative;
-    z-index: 9999;
     text-align: center;
     
   }
 
   #logo {
-    margin-top: -5%;
-    height: 50%;
+    margin-top: -10%;
+    height: 70%;
+    margin-bottom: -10%;
   }
 
   #addplace {
@@ -110,10 +110,43 @@ textarea {
     background-color: #d1786e;
   }
 
-.check {
+  #containerall {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+  
+  }
+
+  #container1 {
+    width: 33%;
+  }
+
+  #container2 {
+    width: 33%;
+  }
+
+  #container3 {
+    width: 33%;
+  }
+
+  #hello {
+    background-color: #d1786e;
+  }
+
+
+  .check {
   margin-left: 5px;;
 }
 
+.input {
+  padding: 2%;
+  align-content: center;
+}
+
+.form {
+  justify-content: right;
+}
 
   /* google maps. */
 

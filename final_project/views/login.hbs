@@ -1,18 +1,25 @@
 <form action="/login" method="POST">
 <a class="btn" href="/">Home</a>
-  <div>
+
+<div class="form">
+<div class="input">
     
     <label for="username">Username:</label>
     <input type="text" name="username">
   </div>
-  <div>
+
+  <div class="input">
     <label for="password">Password:</label>
     <input type="password" name="password">
+
   </div>
   {{#if message}}
     <div class="error-message">{{ message }}</div>
   {{/if}}
-  <div>
-    <input type="submit" value="Log In">
-  </div>
+
+  <input class="btn" type="submit" value="Log in">
+
+</div>
+  
+
 </form>
