@@ -5,13 +5,18 @@
 
 <img id="logo" src="/images/logo_transparent.png">
 
-<fb:login-button 
-id="fbbtn"
-  scope="public_profile,email"
-  onlogin="checkLoginState();">
-</fb:login-button>
+<p>Already have a account?</p>
+<a class="btn" href="/login" role="button">Log in</a>
 
+<p>Doesn't have an account yet? let's create it!</p>
+<a class="btn" href="/signup" role="button">Sign up</a>
 
+<p>Want to log-in with Facebook?</p>
+    <fb:login-button 
+    id="fbbtn"
+      scope="public_profile,email"
+      onlogin="checkLoginState();">
+    </fb:login-button>
 
 </div>
 

@@ -3,24 +3,30 @@
 
 
 <h1>{{name}}</h1>
-<h2>{{city}}</h2>
+<h2>City name: {{city}}</h2>
 
   <a class="btn" href='/my-page/add-place/{{_id}}'>Add a place</a>
 
+  
   <div id='places'>
-    <h4 id="info">Info</h4>
+    <h3 id="info">Info</h3>
 
     {{#each places}}
-    <h6>{{name}}</h6>
-    <h4>{{comments}}</h4>
+    <h3>Place name:<p>{{name}}</p></h3>
+    <h3>Comments:<p>{{comments}}</p></h3>
     {{/each}}
 
-    <h4 id="friendscomments">My Friends Comments</h4>
     <input class="btn" id='deletebtn' type="button" value="Delete Place">
+
+    <div class="btn" href="#">
+    <input type="checkbox" class="check">Visited
+    </div>​
+    {{!-- <input class="btn" id='deletebtn' type="button" value="Visited"> --}}
   </div>
 
  {{!-- Google Places routes  --}}
 
+<h1>Check the best routes</h1>
 <div style="display: none">
     <input id="origin-input" class="controls" type="text"
         placeholder="Enter an origin location">
@@ -43,15 +49,15 @@
 <div id="map1"></div>
 
 {{!-- Weather api --}}
-
-<a class="weatherwidget-io" href="https://forecast7.com/en/52d374d90/amsterdam/" data-label_1="AMSTERDAM" data-label_2="WEATHER" data-theme="gray" >AMSTERDAM WEATHER</a>
+{{!-- 
+<a class="weatherwidget-io" href="https://forecast7.com/en/{{city}}/" data-label_1="AMSTERDAM" data-label_2="WEATHER" data-theme="gray" >AMSTERDAM WEATHER</a>
 <script>
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-</script>
+</script> --}}
 
 {{!-- Delete Button --}}
 
-<a href='/my-page/journals/journal-details/delete?id={{_id}}'>Delete Journal</a>
+<a class="btn" href='/my-page/journals/journal-details/delete?id={{_id}}'>Delete Journal</a>
 
 
 </div>

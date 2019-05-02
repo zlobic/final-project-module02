@@ -4,24 +4,16 @@ const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express      = require('express');
 const favicon      = require('serve-favicon');
-const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-
 const bcrypt = require('bcrypt');
-
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+
+
 const User = require('./models/user');
-const Journal = require('./models/journal');
-const Day = require('./models/day');
-const Place = require('./models/place');
-const Comment = require('./models/comment');
-
-
-const ObjectId = mongoose.Types.ObjectId;
 
 const session = require('express-session');
 
@@ -105,17 +97,6 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
-//Delete
-
-// app.delete("/my-page/journals/journal-details", function(req, res){
-//   Journal.findByIdAndRemove(ObjectId(req.params.id), function(err){
-//     if(err){
-//       res.send(err);
-//     } else {
-//       res.redirect("/my-page/journals");
-//     }
-//   });
-// });
 
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
@@ -125,6 +106,17 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 const auth = require('./routes/auth');
 app.use('/', auth);
+
+
+// const fs = require('fs')
+// const https=require('https')
+
+// https.createServer({
+//   key: fs.readFileSync('server.key'),
+//   cert: fs.readFileSync('server.cert')
+// }, app).listen(3000, () => {
+//   console.log('Listening...')
+// })
 
 
 module.exports = app;
