@@ -8,7 +8,31 @@ Go to (https://c5119ec1.ngrok.io/) *[http://localhost:5000/] to open the app
 
 ## Introduction
 
-Travelz Journal contains
+- Language
+
+Travelz Journal was built with **Javascript** language. 
+
+- APIs
+The app contains two APIs: **Google Maps** and **Facebook**. Google Maps was chosen so the user can search for places in a speficic city he wishes to visit. The API contains the **autocomplete** feature which improves the search experience.
+The Facebook API was used to facilitate the user login. The **Facebook username** is the only information accessed by the app.
+
+- Views and Routes
+The app contains the following views and, for each, a spefic route:
+
+**Index**: home page
+**Sign up**: Sign up for first time users
+**Login**: Login for existing users
+**Private**: User's private page
+**Create journal**: User can create a personal journal
+**Journal details**: User can add, see and delete the journals he created
+**Add place**: User can add the places he wishes to visit 
+
+Extras
+**Layout** HTML with APIs, bootstrap, stylesheet, javascript **href**
+**Not found**: Route does not exist on the app
+**Error**: Error on the server
+
+
 
 ## Instructions
 
