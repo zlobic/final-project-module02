@@ -4,7 +4,7 @@ Travelz is an application that allows you to create your own travel journal.
 
 ## Installation
 
-Go to (https://c5119ec1.ngrok.io/) *[http://localhost:5000/] to open the app
+Go to https://c5119ec1.ngrok.io/ or http://localhost:5000/ to open the app
 
 ## Introduction
 
@@ -19,9 +19,9 @@ The Facebook API was used to facilitate the user login. The **Facebook username*
 - Views and Routes
 The app contains the following views and, for each, a spefic route:
 
-**Index**: home page
-**Sign up**: Sign up for first time users
-**Login**: Login for existing users
+**Index**: home page<p>
+**Sign up**: Sign up for first time users<p>
+**Login**: Login for existing users<p>
 **Private**: User's private page
 **Create journal**: User can create a personal journal
 **Journal details**: User can add, see and delete the journals he created
@@ -36,7 +36,7 @@ Extras
 
 ## Instructions
 
-When you go to the main page (https://c5119ec1.ngrok.io/) or *[http://localhost:5000/], you are able to sign up or login. There are two different login methods: either via the **Travelz Journal** or via **Facebook**
+When you go to the main page https://c5119ec1.ngrok.io/ or http://localhost:5000/, you are able to sign up or login. There are two different login methods: either via the **Travelz Journal** or via **Facebook**
 
 After logging in, you will get redirected your **Private Page** where you can see all your personal journals. 
 
