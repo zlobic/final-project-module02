@@ -1,24 +1,20 @@
 <form action="/login" method="POST">
-<a class="btn" href="/">Home</a>
+<a class="btn glyphicon glyphicon-home" href="/"> Home</a>
 
 <div class="form">
+
 <div class="input">
-    
     <label for="username">Username:</label>
     <input type="text" name="username">
   </div>
-
-  <div class="input">
+<div class="input">
     <label for="password">Password:</label>
     <input type="password" name="password">
-
-  </div>
+</div>
   {{#if message}}
     <div class="error-message">{{ message }}</div>
   {{/if}}
-
-  <input class="btn" type="submit" value="Log in">
-
+<input id="loginbtn" class="btn" type="submit" value="Log in">
 </div>
   
 

@@ -11,6 +11,7 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
+const findOrCreate = require('mongoose-findorcreate');
 
 
 
@@ -85,36 +86,45 @@ app.use(passport.session());
 //Facebook
 
 
-
-
 passport.use(new FacebookStrategy({
-    clientID: 615428192265294,
-    clientSecret: "9c7720262e429a21bf5f561a9a73a9c6",
-    callbackURL: "http://www.example.com/auth/facebook/callback"
+    clientID: process.env.FACEBOOKCLIENTID,
+    clientSecret: process.env.FACEBOOKCLIENTSECRET,
+    callbackURL: process.env.CALLBACKURL,
+    profileFields: ['id', 'displayName']
   },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate( profile, function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
+
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ facebookId: profile.id , name: profile.displayName}, function (err, user) {
+      return cb(err, user);
     });
   }
 ));
 
-// Redirect the user to Facebook for authentication.  When complete,
-// Facebook will redirect the user back to the application at
-//     /auth/facebook/callback
-app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook',
+  passport.authenticate('facebook'))
 
-// Facebook will redirect the user to this URL after approval.  Finish the
-// authentication process by attempting to obtain an access token.  If
-// access was granted, the user will be logged in.  Otherwise,
-// authentication has failed.
-
-app.get('/my-page',
-  passport.authenticate('facebook', { successRedirect: '/my-page',
-                                      failureRedirect: '/' }));
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('https://c5119ec1.ngrok.io/my-page');
+  });
 
 
+// HTTPS
+
+// var fs = require('fs');
+// var http = require('http');
+// var https = require('https');
+// var privateKey  = fs.readFileSync('server.key');
+// var certificate = fs.readFileSync('server.cert');
+
+// var credentials = {key: privateKey, cert: certificate};
+
+// var httpServer = http.createServer(app);
+// var httpsServer = https.createServer(credentials, app);
+
+// httpServer.listen(5000);
+// httpsServer.listen(5000);
 
 
 // Express View engine setup
@@ -142,15 +152,15 @@ const auth = require('./routes/auth');
 app.use('/', auth);
 
 
-const fs = require('fs')
-const https=require('https')
+// const fs = require('fs')
+// const https=require('https')
 
-https.createServer({
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.cert')
-}, app).listen(5000, () => {
-  console.log('Listening...')
-})
+// https.createServer({
+//   key: fs.readFileSync('server.key'),
+//   cert: fs.readFileSync('server.cert')
+// }, app).listen(5000, () => {
+//   console.log('Listening...')
+// })
 
 
 module.exports = app;

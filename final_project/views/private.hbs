@@ -1,27 +1,31 @@
-<div>
-  <div id="leftbar">
-    <h1>Welcome {{user.name}}</h1>
-    <div id="scrollmenu1">
-      <a class="btn" href="/">Home</a>
-      <h2>My Profile</h2>
-      <a class="btn" href="#">View profile</a>
-      <a class="btn" href="#">Edit your profile</a>
-    </div>
-    <div>
+
+<ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link active btn glyphicon glyphicon-home" href="/">   Home</a>
+  </li>
+  <br>
+  <li class="nav-item">
+    <a class="nav-link btn glyphicon glyphicon-user" href="#">   View profile</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link btn glyphicon glyphicon-pencil" href="#">   Edit your profile</a>
+  </li>
+<li class="nav-item" id="logout">
+    <a class="nav-link btn" href="/logout">Logout</a>
+  </li>
+</ul>
+
+  <div class="main">
+      <h1>Welcome {{user.name}}</h1>
       <h1>Journals</h1>
-      {{#each journals}}
+      <div id="journalcontainer">
+        {{#each journals}}
       <p>{{name}}</p>
       <a class="btn" href="/my-page/journals/journal-details/{{_id}}" role="button">See More</a>
       {{/each}}
-    </div>
-    {{#if message}}
-    {{message}}
-    {{/if}}
-
-    <div id="main">
-      <a class="btn" id="addbtn" href="/my-page/create-journal">Add a journal</a>
-    </div>
-    <a class="btn" href="/logout">Logout</a>
+      </div>
+      
+      <a class="btn glyphicon glyphicon-plus" id="addbtn" href="/my-page/create-journal">   Add a journal</a>
   </div>
+   
 
-</div>
