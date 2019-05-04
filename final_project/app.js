@@ -106,27 +106,10 @@ app.get('/auth/facebook',
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('https://c5119ec1.ngrok.io/my-page');
+    res.redirect('https://c303c0f1.ngrok.io/my-page');
   });
 
-
-// HTTPS
-
-// var fs = require('fs');
-// var http = require('http');
-// var https = require('https');
-// var privateKey  = fs.readFileSync('server.key');
-// var certificate = fs.readFileSync('server.cert');
-
-// var credentials = {key: privateKey, cert: certificate};
-
-// var httpServer = http.createServer(app);
-// var httpsServer = https.createServer(credentials, app);
-
-// httpServer.listen(5000);
-// httpsServer.listen(5000);
-
-
+  
 // Express View engine setup
 
 app.use(require('node-sass-middleware')({
